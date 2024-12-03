@@ -15,7 +15,6 @@ export const useCalendarStore = () => {
 
   const startSavingEvent = async (event) => {
     //backend call
-    console.log(event);
     if (event._id) {
       dispatch(eventUpdate(event));
     } else {

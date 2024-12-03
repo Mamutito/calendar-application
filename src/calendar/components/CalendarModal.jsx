@@ -81,7 +81,6 @@ const CalendarModal = ({ onClose, modalIsOpen }) => {
       );
       return;
     }
-    console.log(formValues);
     await startSavingEvent(formValues);
     onClose();
   };

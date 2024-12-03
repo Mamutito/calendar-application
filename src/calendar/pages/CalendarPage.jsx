@@ -34,7 +34,6 @@ const CalendarPage = () => {
 
   const doubleClickEvent = (e) => {
     setIsOpen(true);
-    console.log(e);
     calendarSetActive(e);
   };
   const addNewEvent = () => {
