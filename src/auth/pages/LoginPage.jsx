@@ -17,7 +17,7 @@ const registerFormFields = {
 };
 
 const LoginPage = () => {
-  const { startLogin, errorMessage } = useAuthStore();
+  const { startLogin, errorMessage, startRegister } = useAuthStore();
   const {
     onInputChange: onLoginInputChange,
     loginEmail,
@@ -39,6 +39,19 @@ const LoginPage = () => {
 
   const handleRegisterSubmit = (event) => {
     event.preventDefault();
+    if (registerPassword !== registerConfirmPassword) {
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Passwords must match",
+      });
+      return;
+    }
+    startRegister({
+      name: registerName,
+      email: registerEmail,
+      password: registerPassword,
+    });
   };
 
   useEffect(() => {
