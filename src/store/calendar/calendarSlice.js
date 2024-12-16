@@ -37,6 +37,7 @@ const calendarSlice = createSlice({
       state.events = [];
       state.activeEvent = null;
       state.isLoadingEvents = true;
+    },
   },
 });
 
