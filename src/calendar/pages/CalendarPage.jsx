@@ -7,11 +7,12 @@ import Navbar from "../components/Navbar";
 import { es } from "date-fns/locale";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import CalendarEvent from "../components/CalendarEvent";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import CalendarModal from "../components/CalendarModal";
 import { useCalendarStore } from "../../hooks/useCalendarStore";
 import FabNewButton from "../components/FabNewButton";
 import FabDelete from "../components/FabDelete";
+import { useSelector } from "react-redux";
 
 const locales = {
   es: es,
@@ -26,10 +27,11 @@ const localizer = dateFnsLocalizer({
 });
 
 const CalendarPage = () => {
-  const { events, calendarSetActive } = useCalendarStore();
+  const { events, calendarSetActive, startLoadingEvents } = useCalendarStore();
   const [lastView, setLastView] = useState(
     localStorage.getItem("lastView") || "week"
   );
+  const { user } = useSelector((state) => state.auth);
   const [modalIsOpen, setIsOpen] = useState(false);
 
   const doubleClickEvent = (e) => {
@@ -50,6 +52,11 @@ const CalendarPage = () => {
     localStorage.setItem("lastView", e);
     setLastView(e);
   };
+
+  useEffect(() => {
+    startLoadingEvents();
+  }, []);
+
   return (
     <div>
       <Navbar />
@@ -61,8 +68,10 @@ const CalendarPage = () => {
         endAccessor="end"
         style={{ height: "calc(100vh - 80px)" }}
         eventPropGetter={(event, start, end, isSelected) => {
+          const isMyEvent =
+            event.user._id === user.uid || event.user.uid === user.uid;
           let newStyle = {
-            backgroundColor: "lightblue",
+            backgroundColor: isMyEvent ? "lightblue" : "#465660",
             color: "black",
             borderRadius: "0px",
             border: "none",

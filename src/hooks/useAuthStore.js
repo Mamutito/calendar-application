@@ -6,7 +6,7 @@ import {
   onLogin,
   onLogout,
 } from "../store/auth/authSlice";
-import { ca } from "date-fns/locale";
+import { logoutCalendar } from "../store/calendar/calendarSlice";
 const useAuthStore = () => {
   const { user, status, errorMessage } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
@@ -68,6 +68,7 @@ const useAuthStore = () => {
 
   const startLogout = () => {
     localStorage.clear();
+    dispatch(logoutCalendar());
     dispatch(onLogout());
   };
 

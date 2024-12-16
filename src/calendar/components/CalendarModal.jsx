@@ -33,7 +33,7 @@ const CalendarModal = ({ onClose, modalIsOpen }) => {
   useEffect(() => {
     if (event) {
       setFormValues({
-        _id: event._id,
+        id: event.id,
         title: event.title,
         notes: event.notes,
         start: event.start,
